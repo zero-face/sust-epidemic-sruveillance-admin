@@ -1,35 +1,58 @@
 import request from '../../utils/request'
+import config from '../../utils/config'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    bannerList: [] ,// 轮播图数据
-    hotGraduationPicture:[],//热门毕业照数据
+    chinaEpidemicTotalData:{},
+    chinaEpidemicAddData:{},
+    dataList:[],
+    dataPoint:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad:  function (options) {
-    //this.getBanner(),
-    //this.getHotGraduationPicture()
+    this.getChinaEpidemicTotalData()
+    this.getChinaEpidemicAddData()
+    this.getAllProvinceEpidemicData()
   },
-  //获取轮播图
   
-  async getBanner(){
-    let bannerListData=await request('/picture/banner/getBanner');
+  //获取最新疫情数据
+  async getChinaEpidemicTotalData(){
+    let chinaEpidemicTotalData=await request('/api/v1/user/epidemic-data/getChinaEpidemicTotalData');
     this.setData({
-      bannerList:bannerListData.data.bannerList
+      chinaEpidemicTotalData:chinaEpidemicTotalData.data.chinaEpidemicTotalData
     })
   },
-  async getHotGraduationPicture(){
-    let pictureListData=await request('/picture/picture/getHotPictureAndClass');
+ //获取最新疫情新增数据
+  async getChinaEpidemicAddData(){
+    let chinaEpidemicAddData=await request('/api/v1/user/epidemic-data-trend/getTodayEpidemicDataTrend');
     this.setData({
-      hotGraduationPicture:pictureListData.data.pictureList
+      chinaEpidemicAddData:chinaEpidemicAddData.data.chinaEpidemicAddData
     })
   },
+  //获取各个省疫情累积确诊数据
+  async getAllProvinceEpidemicData(){
+    wx.request({
+      url: config.host+'/api/v1/user/epidemic-data/getAllProvinceEpidemicData',
+      method:"get",
+      success: (res) => {
+        let data = res.data;
+        this.setData({
+          dataList:res.datalist
+        })
+      }
+    })
+    let dataList=await request('/api/v1/user/epidemic-data/getAllProvinceEpidemicData');
+    this.setData({
+      dataList:dataList.data.list
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -1,5 +1,8 @@
 /**app.wxss**/
-@import "/static/iconfont/icon.font.wxss"
+@import "/static/iconfont/icon.font.wxss";
+@import "/modules/colourUi/icon.wxss";
+@import "/modules/colourUi/main.wxss";
+@import "/modules/colourUi/animation.wxss";
 
 .container {
   height: 100%;

@@ -1,16 +1,16 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/personal/personal",
     "pages/news/news",
     "pages/community/community"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#d43c33",
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#10aeb5",
     "navigationBarTitleText": "sust疫情监测管理平台",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#333",
@@ -27,7 +27,7 @@
         "pagePath": "pages/news/news",
         "text": "资讯",
         "iconPath": "/static/images/tubiao/tab/news.png",
-        "selectedIconPath": "/static/images/tubiao/current/news.jpg"
+        "selectedIconPath": "/static/images/tubiao/current/news.png"
       },
       {
         "pagePath": "pages/community/community",
