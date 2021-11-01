@@ -4,23 +4,23 @@ Component({
   data: {
     ec: {
       lazyLoad: true  //设置图表懒加载
-    }
+    },
+    dataList: []
   },
 
   properties: {
     dataList : {       // 地图中展示的数据
       type: Array,
-      value: [
-        { name: '安徽', value: 100 },
-        { name: '陕西', value: 10 }
-      ]
+      value: [],
     },
+    
     dataPoint: {    // 为地图某个位置标点，本例中来实现，地图中某个省份清零后，为其省份插上小红旗
       type: Array,
       value: []
     }
   },
-    methods: {
+
+   methods: {
       // 设置图表所需的option
       setOption(chart, dataList, dataPoint) {
         const option = {
@@ -129,8 +129,11 @@ Component({
          };
         chart.setOption(option);
       },
-     // 初始化图表
-    init_one(dataList, dataPoint) {           //初始化图表
+      // 初始化图表
+     init_one(dataList, dataPoint) {     
+      this.oneComponent = this.selectComponent('#mychart-dom-area');
+       console.log(dataList);
+       console.log(this.oneComponent.init);
         this.oneComponent.init((canvas, width, height, dpr) => {
           const chart = echarts.init(canvas, null, {
             width: width,
@@ -149,14 +152,15 @@ Component({
           return chart
         });
       },
+
    //初始化图表封装了一层
-   getOneOption(){
-     console.log(this.data.dataList)
-        this.init_one(this.data.dataList, this.data.dataPoint)
+    getOneOption(){ 
+
       },
     },
+
   lifetimes: {
-    attached: function() {
+  attached: function() {
       // 在组件实例进入页面节点树时执行
       // 获取echarts组件，并赋值给变量，然后初始化图表
       this.oneComponent = this.selectComponent('#mychart-dom-area');
@@ -164,8 +168,15 @@ Component({
         this.getOneOption();
       }
     },
-    detached: function() {
+  detached: function() {
       // 在组件实例被从页面节点树移除时执行
     },
+  },
+
+  // properties里接受的数据发生改变时执行
+  observers:{
+    'dataList':function(dataList){
+       this.init_one(dataList) 
+    }
   }
 })

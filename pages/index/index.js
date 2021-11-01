@@ -37,17 +37,8 @@ Page({
   },
   //获取各个省疫情累积确诊数据
   async getAllProvinceEpidemicData(){
-    wx.request({
-      url: config.host+'/api/v1/user/epidemic-data/getAllProvinceEpidemicData',
-      method:"get",
-      success: (res) => {
-        let data = res.data;
-        this.setData({
-          dataList:res.datalist
-        })
-      }
-    })
     let dataList=await request('/api/v1/user/epidemic-data/getAllProvinceEpidemicData');
+    // console.log(dataList.data.list);
     this.setData({
       dataList:dataList.data.list
     })
